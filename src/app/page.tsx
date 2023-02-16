@@ -13,6 +13,10 @@ export default function Home() {
     branch: "",
     email: "",
     level: "",
+    vocabulary: "",
+    grammar: "",
+    reading: "",
+    listening: "",
   });
   useEffect(() => {
     console.log(form);
@@ -44,18 +48,19 @@ export default function Home() {
       console.log("no file");
       return;
     }
+    toast.info("Chargement...", {
+      position: "bottom-center",
+      autoClose: 500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    sendFormData(e);
 
-    try {
-      toast.info("Chargement...", {
-        position: "bottom-center",
-        autoClose: 500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+    /*    try {
       var formData = new FormData();
       formData.append("media", file);
       formData.append("studentName", form.fullname);
@@ -81,11 +86,10 @@ export default function Home() {
         return;
       }
 
-      sendFormData(e);
     } catch (error) {
       console.error(error);
       alert("Sorry! something went wrong.");
-    }
+    } */
   };
   const sendFormData = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -186,9 +190,9 @@ export default function Home() {
                 onChange={(e) => setForm({ ...form, code: e.target.value })}
               />
             </div>
-            <div className="w-full">
+            <div>
               <label
-                htmlFor="company"
+                htmlFor="branch"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Filière
@@ -224,37 +228,136 @@ export default function Home() {
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
-          <label
-            htmlFor="level"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Niveau d{"'"}anglais
-          </label>
-          <select
-            id="level"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            onChange={(e) => setForm({ ...form, level: e.target.value })}
-          >
-            <option selected>Selectionner votre niveau</option>
-            <option value="A1">A1</option>
-            <option value="A2">A2</option>
-            <option value="B1">B1</option>
-            <option value="B2">B2</option>
-            <option value="C1">C1</option>
-            <option value="C2">C2</option>
-          </select>
-          <label
-            className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            htmlFor="large_size"
-          >
-            Large file input
-          </label>
-          <input
-            className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-            id="large_size"
-            type="file"
-            onChange={(e) => onFileChange(e)}
-          />
+          <div className="">
+            <label
+              htmlFor="level"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Niveau d{"'"}anglais
+            </label>
+            <select
+              id="level"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setForm({ ...form, level: e.target.value })}
+            >
+              <option selected>Selectionner votre niveau</option>
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+          </div>
+          <div className="my-4">
+            <label
+              htmlFor="level"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Niveau d{"'"}anglais en{" "}
+              <span className="text-blue-600 dark:text-blue-500">Grammar</span>
+            </label>
+            <select
+              id="level"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setForm({ ...form, grammar: e.target.value })}
+            >
+              <option>Selectionner votre niveau</option>
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+          </div>
+          <div className="my-4">
+            <label
+              htmlFor="level"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Niveau d{"'"}anglais en{" "}
+              <span className="text-blue-600 dark:text-blue-500">
+                Vocabulary
+              </span>
+            </label>
+            <select
+              id="level"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setForm({ ...form, vocabulary: e.target.value })}
+            >
+              <option>Selectionner votre niveau</option>
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+          </div>
+          <div className="my-4">
+            <label
+              htmlFor="level"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Niveau d{"'"}anglais en{" "}
+              <span className="text-blue-600 dark:text-blue-500">
+                Reading comprehension
+              </span>
+            </label>
+            <select
+              id="level"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setForm({ ...form, reading: e.target.value })}
+            >
+              <option>Selectionner votre niveau</option>
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+          </div>
+          <div className="my-4">
+            <label
+              htmlFor="level"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Niveau d{"'"}anglais en{" "}
+              <span className="text-blue-600 dark:text-blue-500">
+                Listening comprehension
+              </span>
+            </label>
+            <select
+              id="level"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(e) => setForm({ ...form, listening: e.target.value })}
+            >
+              <option>Selectionner votre niveau</option>
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+          </div>
+          <div className="">
+            <label
+              className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              htmlFor="large_size"
+            >
+              Large file input
+            </label>
+            <input
+              className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              id="large_size"
+              type="file"
+              onChange={(e) => onFileChange(e)}
+            />
+          </div>
+
           <button
             type="button"
             className="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"

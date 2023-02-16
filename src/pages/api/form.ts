@@ -27,6 +27,10 @@ const handler = async (
         certificate: {
           create: {
             level: body.level,
+            grammar: body.grammar,
+            vocabulary: body.vocabulary,
+            reading: body.reading,
+            listening: body.listening,
           },
         },
       },

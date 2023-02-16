@@ -18,9 +18,13 @@ model Student {
 }
 
 model Certificate {
-  id        String  @id @default(cuid())
-  url       String?
-  level     String
-  student   Student @relation(fields: [studentId], references: [id])
-  studentId String  @unique
+  id         String  @id @default(cuid())
+  url        String?
+  level      String
+  vocabulary String
+  grammar    String
+  reading    String
+  listening  String
+  student    Student @relation(fields: [studentId], references: [id])
+  studentId  String  @unique
 }
