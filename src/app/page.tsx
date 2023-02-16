@@ -190,7 +190,7 @@ export default function Home() {
                 htmlFor="company"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
-                Filiére
+                Filière
               </label>
               <select
                 id="branches"
@@ -227,7 +227,7 @@ export default function Home() {
             htmlFor="level"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            Niveau d'anglais
+            Niveau d{"'"}anglais
           </label>
           <select
             id="level"
