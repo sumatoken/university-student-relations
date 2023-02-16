@@ -150,7 +150,7 @@ export default function Home() {
       <ToastContainer />
 
        <h1 className="md:mb-4 mb-1 p-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Déposer votre certificat de test anglais sur
+        Déposer votre certificat de test anglais sur {" "}
         <span className="text-blue-600 dark:text-blue-500">
           platforme Loghate.
         </span>{" "}
