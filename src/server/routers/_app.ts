@@ -88,7 +88,7 @@ export const appRouter = router({
         } catch (error) {
             return {
                     status: 405,
-                student: null
+                error
                 }
         }
     })
