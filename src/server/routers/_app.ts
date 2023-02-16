@@ -24,9 +24,9 @@ export const appRouter = router({
         code: z.string()
     })).mutation(async({input})=>{
        try {
-        const student = await prisma.student.findUnique({
+        const student = await prisma.student.findFirst({
             where: {
-                code: input.code as string
+                code: input.code
             },
             select:{
                 fullname: true
