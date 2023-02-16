@@ -11,7 +11,7 @@ export default function Students() {
   return (
     <div>
       {students.data.map((student, key) => (
-        <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+        <ul key={key} className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
    <li className="pb-3 sm:pb-4">
       <div className="flex items-center space-x-4">
          
