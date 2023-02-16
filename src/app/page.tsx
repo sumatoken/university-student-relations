@@ -76,6 +76,7 @@ export default function Home() {
       } = await res.json();
 
       if (error || !data) {
+        console.log(error);
         alert(error || "Sorry! something went wrong.");
         return;
       }
@@ -147,7 +148,7 @@ export default function Home() {
       <h1 className="md:mb-4 mb-1 p-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         Déposer votre certificat après le test sur{" "}
         <span className="text-blue-600 dark:text-blue-500">
-          Platform Loghat.
+          Platforme Loghate.
         </span>{" "}
       </h1>
       <div className="w-full md:w-1/4">
