@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Student {
+  id          String       @id @default(cuid())
+  fullname    String
+  email       String
+  code        String
+  branch      String
+  level       String
+  certificate Certificate?
+}
+
+model Certificate {
+  id        String  @id @default(cuid())
+  url       String?
+  level     String
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String  @unique
+}
