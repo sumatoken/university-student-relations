@@ -24,6 +24,11 @@ const handler = async (
         email: body.email,
         code: body.code,
         branch: body.branch,
+        certificate: {
+          create: {
+            level: body.level,
+          },
+        },
       },
     });
     if (student) {

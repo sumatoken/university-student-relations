@@ -190,7 +190,7 @@ export default function Home() {
             <option value="C2">C2</option>
           </select>
           <label
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mt-2 mb-2 text-sm font-medium text-gray-900 dark:text-white"
             htmlFor="large_size"
           >
             Large file input
@@ -203,7 +203,7 @@ export default function Home() {
           />
           <button
             type="button"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            className="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             onClick={(e) => onUploadFile(e)}
           >
             Default
