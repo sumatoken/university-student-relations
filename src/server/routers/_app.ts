@@ -44,6 +44,53 @@ export const appRouter = router({
         console.log(error)
         return {status: '404'}
        }
+    }),
+    saveStudent: procedure.input(z.object({
+        fullname: z.string(),
+        code: z.string(),
+        branch: z.string(),
+        email: z.string(),
+        level: z.string(),
+        grammar: z.string(),
+        vocabulary: z.string(),
+        reading: z.string(),
+        listening: z.string()
+        
+    })).mutation(async ({input}) => {
+        try {
+            const saveStudentInstance = await prisma.student.create({
+                data: {
+                    fullname: input.fullname,
+                    code: input.code,
+                    branch: input.branch,
+                    email: input.email,
+                   certificate: {
+                    create: {
+                        level: input.level,
+                        grammar: input.grammar,
+                        vocabulary: input.vocabulary,
+                        reading: input.reading,
+                        listening: input.listening
+                    }
+                   } 
+                }
+            })
+            if(!saveStudentInstance){
+                return {
+                    status: 405,
+                student: null
+                }
+            }
+            return {
+                status: 200,
+                student: saveStudentInstance
+            }
+        } catch (error) {
+            return {
+                    status: 405,
+                student: null
+                }
+        }
     })
 });
 

@@ -1,5 +1,7 @@
 "use client";
+import { trpc } from "@/utils/trpc";
 import { Inter } from "@next/font/google";
+import Head from "next/head";
 import Link from "next/link";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,12 +21,31 @@ export default function Home() {
     reading: "",
     listening: "",
   });
-  useEffect(() => {
-    console.log(form);
-
-    return () => {};
-  }, [form]);
-
+  const student = trpc.saveStudent.useMutation()
+    if(student.data?.status === 405){
+       toast.error("Réessayez plus tard", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    if(student.data?.status === 200){
+      toast.success("Succès!", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileInput = e.target;
     console.log(fileInput.files);
@@ -49,16 +70,6 @@ export default function Home() {
       console.log("no file");
       return;
     }
-    toast.info("Chargement...", {
-      position: "bottom-center",
-      autoClose: 500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
     sendFormData(e);
 
     /*    try {
@@ -94,59 +105,32 @@ export default function Home() {
   };
   const sendFormData = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    try {
-      const res = await fetch("/api/form", {
-        method: "POST",
-        body: JSON.stringify(form),
-      });
-      const {
-        data,
-        error,
-      }: {
-        data: {
-          url: string | string[];
-        } | null;
-        error: string | null;
-      } = await res.json();
+    student.mutate(form)
 
-      if (error || !data) {
-        toast.error("Réessayez plus tard", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-        return;
-      }
-      toast.success("Succès!", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } catch (error) {
-      toast.error("Réessayez plus tard", {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+      toast.info("Chargement...", {
+      position: "bottom-center",
+      autoClose: 500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+ 
+
   };
   return (<>
     <div className="mt-4 flex flex-col gap-6 items-center justify-center">
+      <Head>
+      <title>Déposer votre certificat</title>
+      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta
+        name="description"
+        content="Application pour déposer votre certificat"
+      />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
       <ToastContainer />
 
        <h1 className="md:mb-4 mb-1 p-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
