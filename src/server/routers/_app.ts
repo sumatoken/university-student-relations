@@ -20,6 +20,28 @@ export const appRouter = router({
         }
    
     }),
+    getStudent: procedure.input(z.object({
+        code: z.string()
+    })).mutation(async({input})=>{
+       try {
+        const student = await prisma.student.findUnique({
+            where: {
+                code: input.code
+            }
+        })
+        if(!student){
+            return {
+                status: 404,
+                student: null
+            }
+
+        }
+        return {status: 200, student: student}
+       } catch (error) {
+        console.log(error)
+        return {status: '404'}
+       }
+    })
 });
 
 // export type definition of API
