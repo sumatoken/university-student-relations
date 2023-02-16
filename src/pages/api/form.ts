@@ -3,10 +3,7 @@ import { Student } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 const handler = async (
   req: NextApiRequest,
-  res: NextApiResponse<{
-    data: Student | null;
-    error: string | null;
-  }>
+  res: NextApiResponse
 ) => {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -43,7 +40,7 @@ const handler = async (
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ data: null, error: "Internal Server Error" });
+    res.status(500).json({ data: null, error});
   }
   console.log(body);
 };
