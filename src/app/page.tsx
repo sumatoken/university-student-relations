@@ -1,9 +1,8 @@
 "use client";
-import Image from "next/image";
 import { Inter } from "@next/font/google";
-import styles from "./page.module.css";
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -47,8 +46,19 @@ export default function Home() {
     }
 
     try {
+      toast.info("Chargement...", {
+        position: "bottom-center",
+        autoClose: 500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       var formData = new FormData();
       formData.append("media", file);
+      formData.append("studentName", form.fullname);
 
       const res = await fetch("/api/upload", {
         method: "POST",
@@ -70,38 +80,75 @@ export default function Home() {
         return;
       }
 
-      sendFormData();
+      sendFormData(e);
     } catch (error) {
       console.error(error);
       alert("Sorry! something went wrong.");
     }
   };
-  const sendFormData = async () => {
-    const res = await fetch("/api/form", {
-      method: "POST",
-      body: JSON.stringify(form),
-    });
-    const {
-      data,
-      error,
-    }: {
-      data: {
-        url: string | string[];
-      } | null;
-      error: string | null;
-    } = await res.json();
+  const sendFormData = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/form", {
+        method: "POST",
+        body: JSON.stringify(form),
+      });
+      const {
+        data,
+        error,
+      }: {
+        data: {
+          url: string | string[];
+        } | null;
+        error: string | null;
+      } = await res.json();
 
-    if (error || !data) {
-      alert(error || "Sorry! something went wrong.");
-      return;
+      if (error || !data) {
+        alert(error || "Sorry! something went wrong.");
+        return;
+      }
+      toast.success("Succès!", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } catch (error) {
+      toast.error("Réessayez plus tard", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
-    <div className="mt-4 flex flex-col gap-12 items-center justify-center">
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Get back to growth with{" "}
-        <span className="text-blue-600 dark:text-blue-500">the world's #1</span>{" "}
-        CRM.
+    <div className="mt-4 flex flex-col gap-6 items-center justify-center">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <h1 className="md:mb-4 mb-1 p-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        Déposer votre certificat après le test sur{" "}
+        <span className="text-blue-600 dark:text-blue-500">
+          Platform Loghat.
+        </span>{" "}
       </h1>
       <div className="w-full md:w-1/4">
         <form className="w-full p-3" onSubmit={(e) => e.preventDefault()}>
@@ -176,6 +223,12 @@ export default function Home() {
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
+          <label
+            htmlFor="level"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            Niveau d'anglais
+          </label>
           <select
             id="level"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -206,10 +259,23 @@ export default function Home() {
             className="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             onClick={(e) => onUploadFile(e)}
           >
-            Default
+            Déposer
           </button>
         </form>
       </div>
+
+      <footer className="p-4 bg-white rounded-lg shadow md:flex md:items-center gap-8 md:justify-between md:p-6 dark:bg-gray-800">
+        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+          © 2023 Powered by Vercel and PlanetScale™ . All Rights Reserved.
+        </span>
+        <ul className="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+          <li>
+            <a href="mailto:bermime@gmail.com" className="hover:underline">
+              Contacter le developeur
+            </a>
+          </li>
+        </ul>
+      </footer>
     </div>
   );
 }

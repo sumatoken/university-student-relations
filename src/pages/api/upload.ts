@@ -21,7 +21,7 @@ const handler = async (
   try {
     const { fields, files } = await parseForm(req);
 
-    console.log({ fields, files });
+    console.log("requettttt", req.body);
   } catch (e) {
     if (e instanceof FormidableError) {
       res.status(e.httpCode || 400).json({ data: null, error: e.message });
