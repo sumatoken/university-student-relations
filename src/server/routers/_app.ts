@@ -57,7 +57,6 @@ export const appRouter = router({
         listening: z.string()
         
     })).mutation(async ({input}) => {
-        try {
             const saveStudentInstance = await prisma.student.create({
                 data: {
                     fullname: input.fullname,
@@ -85,12 +84,6 @@ export const appRouter = router({
                 status: 200,
                 student: saveStudentInstance
             }
-        } catch (error) {
-            return {
-                    status: 405,
-                error
-                }
-        }
     })
 });
 
