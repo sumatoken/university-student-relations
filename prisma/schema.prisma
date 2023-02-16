@@ -12,7 +12,7 @@ model Student {
   id          String       @id @default(cuid())
   fullname    String
   email       String
-  code        String
+  code        String @unique
   branch      String
   certificate Certificate?
 }
