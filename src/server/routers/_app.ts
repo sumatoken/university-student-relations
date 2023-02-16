@@ -27,6 +27,9 @@ export const appRouter = router({
         const student = await prisma.student.findUnique({
             where: {
                 code: input.code
+            },
+            select:{
+                fullname: true
             }
         })
         if(!student){
