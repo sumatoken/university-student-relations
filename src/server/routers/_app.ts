@@ -8,9 +8,24 @@ export const appRouter = router({
         try {
             const students = await prisma.student.findMany({
                 select: {
+                    id: true,
                     fullname: true,
                     branch: true,
                     code: true,
+                    email: true,
+                    certificate: {
+                        select: {
+                            id: true,
+                            level: true,
+                            grammar: true,
+                            reading: true,
+                            vocabulary: true,
+                            listening: true,
+                            studentId: true,
+                            url: true,            
+                        }
+                    }
+
                 }
             })
          
