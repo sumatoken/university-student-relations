@@ -19,7 +19,7 @@ export function List({ students, branch }: Props) {
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
                         {students?.map((student, key) => (
-                            <li className="py-3 sm:py-4">
+                            <li className="py-3 sm:py-4" key={key}>
                                 <div className="flex items-center justify-around space-x-4">
                                     <div className="flex-shrink-0">
                                         <h2 className="md:mb-4 mb-1 p-4 text-xl text-center font-extrabold leading-none tracking-tigh md:text-base lg:text-base dark:text-white">
