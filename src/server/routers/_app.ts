@@ -74,16 +74,17 @@ export const appRouter = router({
                    } 
                 }
             })
-            if(!saveStudentInstance){
-                return {
-                    status: 405,
-                student: null
-                }
-            }
-            return {
+            if(saveStudentInstance){
+                 return {
                 status: 200,
                 student: saveStudentInstance
             }
+                
+            }
+           return {
+                    status: 405,
+                student: null
+                }
     })
 });
 
